@@ -2,8 +2,8 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static int rows = 3;
-    public static int columns = 4;
+    public static int sizeX = 3;
+    public static int sizeY = 4;
     public static int amountOfEnemies = 10;
     public static int transistorsNeeded = 100;
     public static int moves = 40;
@@ -48,6 +48,9 @@ public class Main {
     }
 
     private static void startNewGame() {
+        Game game = new Game(sizeX, sizeY, amountOfEnemies, transistorsNeeded, moves);
+        game.fillFieldWithEmptyObjects();
 
+        game.startGame();
     }
 }
