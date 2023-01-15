@@ -1,4 +1,6 @@
 import java.lang.ref.PhantomReference;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Game {
     private int sizeX;
@@ -6,16 +8,21 @@ public class Game {
     private int amountOfEnemies;
     private int transistorsNeeded;
     private int movesLeft;
-    private int flowersGathered;
+    private int transistorsGathered;
     private Field field;
     private boolean isGameFinished = false;
+    private int amountOfFlowers;
+    private ArrayList<Flower> flowerArrayList = new ArrayList<>();
 
-    public Game(int sizeX, int sizeY, int amountOfEnemies, int transistorsNeeded, int movesLeft) {
+    private Random randomNumber = new Random();
+
+    public Game(int sizeX, int sizeY, int amountOfEnemies, int transistorsNeeded, int movesLeft,int amountOfFlowers) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.amountOfEnemies = amountOfEnemies;
         this.transistorsNeeded = transistorsNeeded;
         this.movesLeft = movesLeft;
+        this.amountOfFlowers = amountOfFlowers;
         field = new Field(sizeX, sizeY);
     }
 
@@ -42,6 +49,26 @@ public class Game {
     }
 
     private void possesFlowers() {
+
+    }
+
+    private void generateFlowers(){
+        for(int i = amountOfFlowers - flowerArrayList.size();i > 0;){
+           int flowerAmountOfTransistors = randomNumber.nextInt(9)+1;
+           int flowersRowPosition = randomNumber.nextInt(sizeX);
+           int flowerColumnPosition = randomNumber.nextInt(sizeY);
+
+           if(field.getFieldable(flowersRowPosition,flowerColumnPosition) instanceof Player){
+               transistorsGathered = transistorsGathered + flowerAmountOfTransistors;
+               i--;
+           }
+           else if(field.getFieldable(flowersRowPosition,flowerColumnPosition) instanceof Empty){
+               Flower flower = new Flower(flowerAmountOfTransistors);
+               field.setFieldable(flowersRowPosition,flowerColumnPosition,flower);
+               flowerArrayList.add(flower);
+               i--;
+           }
+        }
     }
 
     private void possesEnemues() {
