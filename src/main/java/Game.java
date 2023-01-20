@@ -34,6 +34,17 @@ public class Game {
         }
     }
 
+    public Field getField(){
+        return this.field;
+    }
+
+    public ArrayList<Flower> getFlowerArrayList(){
+        return this.flowerArrayList;
+    }
+    public void setTransistorsGathered(int transistorsToAdd){
+        this.transistorsGathered += transistorsToAdd;
+    }
+
     public void startGame() {
 
         possesPlayer();
@@ -63,7 +74,7 @@ public class Game {
                i--;
            }
            else if(field.getFieldable(flowersRowPosition,flowerColumnPosition) instanceof Empty){
-               Flower flower = new Flower(flowerAmountOfTransistors);
+               Flower flower = new Flower(flowerAmountOfTransistors,flowersRowPosition,flowerColumnPosition);
                field.setFieldable(flowersRowPosition,flowerColumnPosition,flower);
                flowerArrayList.add(flower);
                i--;
