@@ -37,7 +37,7 @@ public class Game {
     public void startGame() {
 
         possesPlayer();
-        possesEnemues();
+        possesEnemies();
         possesFlowers();
 
         while (!isGameFinished) {
@@ -71,7 +71,7 @@ public class Game {
         }
     }
 
-    private void possesEnemues() {
+    private void possesEnemies() {
 
     }
 
