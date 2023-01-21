@@ -1,6 +1,7 @@
 import java.lang.ref.PhantomReference;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Game {
     private int sizeX;
@@ -14,7 +15,12 @@ public class Game {
     private int amountOfFlowers;
     private ArrayList<Flower> flowerArrayList = new ArrayList<>();
 
+    private Player player;
+    private Scanner scanner = new Scanner(System.in);
+
     private Random randomNumber = new Random();
+
+    private Boolean isIncorrectCommand = true;
 
     public Game(int sizeX, int sizeY, int amountOfEnemies, int transistorsNeeded, int movesLeft,int amountOfFlowers) {
         this.sizeX = sizeX;
@@ -54,9 +60,18 @@ public class Game {
         while (!isGameFinished) {
             showField();
             playerTurn();
+            if(isIncorrectCommand){
+                isIncorrectCommand();
+                continue;
+            }
             computerTurn();
             checkIfGameNotFinished();
         }
+    }
+
+    private void isIncorrectCommand() {
+        System.out.println("You have entered an incorrect command, please " +
+                "verify and try again!");
     }
 
     private void possesFlowers() {
@@ -87,7 +102,9 @@ public class Game {
     }
 
     private void possesPlayer() {
-
+        int playerRowPosition = randomNumber.nextInt(sizeX);
+        int playerColumnPosition = randomNumber.nextInt(sizeY);
+        player = new Player(playerRowPosition,playerColumnPosition,this);
     }
 
     private void checkIfGameNotFinished() {
@@ -98,6 +115,10 @@ public class Game {
     }
 
     private void playerTurn() {
+        System.out.println("Please enter your command and press Enter: ");
+        String command = scanner.nextLine();
+        isIncorrectCommand = player.makeMove(command);
+
 
     }
 
